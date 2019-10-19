@@ -1,0 +1,66 @@
+/*css color variables*/
+
+.button {
+    /*background-color: #0da512;*/
+    /*color: white;*/
+    padding: 5px 10px;
+    margin: 0 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.75);
+    border: none;
+    outline: none;
+}
+
+.button:active {
+    box-shadow: unset;
+    outline: none;
+}
+
+.button:focus {
+    outline: none;
+}
+
+.warning {
+    background-color: #a52e37;
+    color: white;
+}
+
+.button.warning:hover {
+    background-color: #a54a50;
+}
+
+.button.warning:disabled {
+    background-color: #a54a50;
+    cursor: not-allowed;
+}
+
+.info {
+    background-color: #3e6aa5;
+    color: white;
+}
+
+.button.info:hover {
+    background-color: #5c7da5;
+}
+
+.button.info:disabled {
+    background-color: #5c7da5;
+    cursor: not-allowed;
+}
+
+.success {
+    background-color: #0da512;
+    color: white;
+}
+
+.button.success:hover {
+    background-color: #61ce64;
+}
+
+.button.success:disabled {
+    background-color: #61ce64;
+    cursor: not-allowed;
+}
+
+
+
+

@@ -1,0 +1,18 @@
+.Home {
+    max-width: 450px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.header {
+    font-size: 3rem;
+    font-weight: bold;
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+@media only screen and (max-width: 450px) {
+    .container {
+        width: calc(100% - 30px);
+        margin: 15px;
+    }
+  }

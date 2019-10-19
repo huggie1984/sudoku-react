@@ -1,0 +1,9 @@
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+.switchMode {
+    line-height: 38px;
+    cursor: pointer;
+    text-decoration: underline !important;
+}
