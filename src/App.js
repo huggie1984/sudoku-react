@@ -36,8 +36,7 @@ class App extends Component {
           <Route path={'/home'} component={Home} />
           <Route path={'/leader-boards'} component={LeaderBoards} />
           {this.props.isPuzzle && <Route path={'/game'} component={Game} />}
-          <Route path={'/'} component={Home} />
-          <Redirect from="*" to={"/"} />
+          <Redirect from="*" to={"/home"} />
         </Switch>
       )
     }

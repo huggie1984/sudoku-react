@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import * as actions from '../../store/actions/index';
-
+import classes from './Navbar.module.css'
 
 class NavBar extends Component {
 
@@ -43,16 +43,20 @@ class NavBar extends Component {
 
     render() {
         return (
-            <Navbar variant="dark">
-                <Link className={'navbar-brand'} to={"/"}>Sudoku</Link>
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand to={"/home"}>Sudoku</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                 { this.props.isAuth && this.props.isPuzzle && <Link className={'nav-link'} to={"/game"}>Game</Link> }
-                 { this.props.isAuth && <Link className={'nav-link'} to={"/leader-boards"}>Leader boards</Link> }
+                    { this.props.isAuth && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/home"}>Home</NavLink> }
+                    { this.props.isAuth && this.props.isPuzzle && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/game"}>Game</NavLink> }
+                    { this.props.isAuth && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/leader-boards"}>Leader boards</NavLink> }
                 </Nav>
                 <Nav className="mr-sm-2">
-                    {this.props.isAuth && <Nav.Link onClick={() => this.logoutHandler()}>Logout</Nav.Link>}
+                    {this.props.isAuth && <NavLink onClick={() => this.logoutHandler()}>Logout</NavLink>}
                 </Nav>
-            </Navbar>
+            </Navbar.Collapse>
+        </Navbar>
         )
     }
 }
