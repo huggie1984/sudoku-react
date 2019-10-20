@@ -148,7 +148,7 @@ export const saveGameAndLogout = (data, token) =>  {
 
 export const getPuzzle = (userId, token) => {
     return dispatch => {
-        dispatch(getPuzzleStart());
+        dispatch(getPuzzleStart(), token);
         const url = 'https://sudoku-19bcc.firebaseio.com/users/' + userId + '/user-data.json?auth=' + token;
         axios.get(url)
         .then(res => {

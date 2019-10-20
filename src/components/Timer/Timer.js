@@ -14,7 +14,7 @@ class Timer extends Component {
 
     startTimer = (currentTime) => {
         this.timerInterval = setInterval( ()=> {
-            this.props.updateTime();
+            this.props.updateTime();// todo dont do this
         }, 1000);
     }
 

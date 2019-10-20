@@ -5,6 +5,8 @@ import { store } from 'react-notifications-component';
 import * as actionTypes from './actionTypes';
 import { toastConfig } from '../../scripts/constants';
 
+let time;
+
 const authStart = () => {
     return {
         type: actionTypes.AUTH_START
@@ -26,10 +28,12 @@ const authFail = (payload) => {
 };
 
 export const logout = () => {
+    clearInterval(time);
     localStorage.removeItem('token');
     localStorage.removeItem('expirationDate');
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
+    localStorage.removeItem('refreshToken');
     return {
         type: actionTypes.AUTH_LOGOUT
     }
@@ -37,9 +41,8 @@ export const logout = () => {
 
 const checkAuthTimeout = (expirationTime) => {
     return dispatch => {
-        setTimeout(() => {
-            // todo renew token.
-            dispatch(logout())
+        time = setTimeout(() => {
+            dispatch(renewToken());
         }, expirationTime * 1000)
     };
 };
@@ -81,7 +84,9 @@ export const auth = (email, password, userName, isLogin) => {
         axios.post(url + requestType + '?key=' + apiKey, authData)
         .then(res => {
             const expirationDate = new Date (new Date().getTime() + res.data.expiresIn * 1000);
+            console.log('Token auth Set');
             localStorage.setItem('token', res.data.idToken);
+            localStorage.setItem('refreshToken', res.data.refreshToken);
             localStorage.setItem('expirationDate', expirationDate);
             localStorage.setItem('userId', res.data.localId);
             localStorage.setItem('userName', res.data.displayName);
@@ -102,6 +107,29 @@ export const auth = (email, password, userName, isLogin) => {
               });
             dispatch(authFail(err))
         })
+    }
+};
+
+const renewToken = () => {
+    return dispatch => {
+        const key = 'AIzaSyBavrXqCQ41dfjOgLH8AUh5WnpmiUy224A';
+        const url = 'https://securetoken.googleapis.com/v1/token?key=' + key;
+        const authData = {
+            grant_type: 'refresh_token',
+            refresh_token: localStorage.getItem('refreshToken')
+        };
+
+        axios.post(url, authData)
+            .then(res => {
+                const expirationDate = new Date (new Date().getTime() + res.data.expires_in * 1000);
+                localStorage.setItem('token', res.data.id_token);
+                localStorage.setItem('refreshToken', res.data.refresh_token);
+                localStorage.setItem('expirationDate', expirationDate);
+                dispatch(checkAuthTimeout(res.data.expires_in));
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 };
 

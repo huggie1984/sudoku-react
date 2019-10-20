@@ -5,7 +5,7 @@ import classes from './Radio.module.css';
 
 const Radio = (props) => {
     return (
-        <div className={classes.Radio + ' m-2'}>
+        <div className={'my-2'}>
             <input
                 onChange={props.handleChange}
                 value={props.value}

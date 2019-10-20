@@ -7,13 +7,23 @@ import { formatTime } from '../../scripts/utils';
 export const LeaderBoard = (props) => {
 
     let tableData = null;
+
+    const setDifficulty = (difficulty) => {
+        switch(difficulty) {
+            case 30: return 'easy puzzle';
+            case 40: return 'medium puzzle';
+            case 50: return 'hard puzzle';
+            default: return '???';
+        }
+    };
+
     if (props.players) {
         tableData = props.players.map((player, i) => (
                 <tr key={i}>
                     <th scope="row">{i + 1}</th>
                     <td>{player.userName}</td>
                     <td>{formatTime(player.time)}</td>
-                    <td>{player.difficulty}</td>
+                    <td>{setDifficulty(player.difficulty)}</td>
                 </tr>
             ));
     }

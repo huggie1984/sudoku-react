@@ -44,7 +44,7 @@ class NavBar extends Component {
     render() {
         return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand to={"/home"}>Sudoku</Navbar.Brand>
+            <Navbar.Brand className={classes.brand} to={"/home"}>Sudoku</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
@@ -53,7 +53,7 @@ class NavBar extends Component {
                     { this.props.isAuth && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/leader-boards"}>Leader boards</NavLink> }
                 </Nav>
                 <Nav className="mr-sm-2">
-                    {this.props.isAuth && <NavLink onClick={() => this.logoutHandler()}>Logout</NavLink>}
+                    {this.props.isAuth && <Nav.Link onClick={() => this.logoutHandler()}>Logout</Nav.Link>}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

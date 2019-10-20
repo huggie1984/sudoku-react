@@ -9,15 +9,14 @@ import * as actions from '../../store/actions/index';
 import Radio from '../../components/UI/Radio/Radio';
 
 
-//todo rename to start page?
 class Home extends Component {
     state = {
         radioGroup: [
-            { value: 1, label: 'easy' },
-            { value: 40, label: 'medium' },
-            { value: 50, label: 'hard' }
+            { value: 40, label: 'easy' },
+            { value: 50, label: 'medium' },
+            { value: 60, label: 'hard' }
         ],
-        puzzleDifficulty: 1,
+        puzzleDifficulty: 40,
     };
 
     componentDidMount() {
@@ -52,27 +51,31 @@ class Home extends Component {
                 <div className={'d-flex flex-column'}>
                     { authRedirect }
                     <div className="mb-3 text-center">
-                        <div className={classes.header}>Sudoku Home</div>
+                        <div className={classes.header}>Sudoku</div>
                     </div>
                     <div className="row">
-                        <div className={'col-6 d-flex flex-column border-right'}>
-                        {this.state.radioGroup.map(radio => (
-                            <Radio
-                                key={'puzzle_' + radio.value}
-                                value={radio.value}
-                                label={radio.label}
-                                id={'puzzle_' + radio.value}
-                                group={'puzzle_difficulty'}
-                                check={this.state.puzzleDifficulty}
-                                handleChange={(event) => this.onRadioChangeHandler(event)}/>
-                        ))}
+                        <div className={'col-sm-6 d-flex flex-sm-column'}>
+                            <div className={'col'}>Select difficulty</div>
+                            <div className={'col'}>
+                                {this.state.radioGroup.map(radio => (
+                                    <Radio
+                                        key={'puzzle_' + radio.value}
+                                        value={radio.value}
+                                        label={radio.label}
+                                        id={'puzzle_' + radio.value}
+                                        group={'puzzle_difficulty'}
+                                        check={this.state.puzzleDifficulty}
+                                        handleChange={(event) => this.onRadioChangeHandler(event)}/>
+                                ))}
+                            </div>
                         </div>
-                        <div className={'col-6 d-flex flex-column justify-content-between'}>
+                        <div className={'col-sm-6 d-flex flex-column my-auto'}>
                             <AppButton
                                 variant={'success'}
                                 label={'New Game'}
                                 type={'button'}
                                 clicked={() => this.newGameClickHandler()} />
+                                <br/>
                             <AppButton
                                 variant={ 'success'}
                                 loading={this.props.isLoadingGame}
