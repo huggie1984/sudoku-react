@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 import * as actions from '../../store/actions/index';
 import classes from './Navbar.module.css'
+import Wrapper from "../../hoc/Wrapper";
 
 class NavBar extends Component {
 
@@ -41,20 +42,26 @@ class NavBar extends Component {
     };
 
     render() {
+        let navItems = null;
+        if(this.props.isAuth) {
+            navItems = <Wrapper>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="mr-auto">
+                        { this.props.isAuth && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/home"}>Home</NavLink> }
+                        { this.props.isAuth && this.props.isPuzzle && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/game"}>Game</NavLink> }
+                        { this.props.isAuth && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/leader-boards"}>Leader boards</NavLink> }
+                    </Nav>
+                    <Nav className="mr-sm-2">
+                        {this.props.isAuth && <Nav.Link onClick={() => this.logoutHandler()}>Logout</Nav.Link>}
+                    </Nav>
+                </Navbar.Collapse>
+            </Wrapper>
+        }
         return (
-        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+        <Navbar expand="md" bg="dark" variant="dark">
             <Navbar.Brand className={classes.brand} to={"/home"}>Sudoku</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="mr-auto">
-                    { this.props.isAuth && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/home"}>Home</NavLink> }
-                    { this.props.isAuth && this.props.isPuzzle && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/game"}>Game</NavLink> }
-                    { this.props.isAuth && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/leader-boards"}>Leader boards</NavLink> }
-                </Nav>
-                <Nav className="mr-sm-2">
-                    {this.props.isAuth && <Nav.Link onClick={() => this.logoutHandler()}>Logout</Nav.Link>}
-                </Nav>
-            </Navbar.Collapse>
+            { navItems }
         </Navbar>
         )
     }

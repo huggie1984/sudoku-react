@@ -19,7 +19,6 @@ class LeaderBoards extends Component {
             for(let key in res.data) {
                 playerData.push(res.data[key])
             }
-            console.log(playerData);
             this.setState({...this.state, playerData})
         })
         .catch( err => {
