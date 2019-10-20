@@ -12,8 +12,10 @@
 /build
 
 # misc
-/.idea
+firebase.json
+.firebaserc
 /.firebase
+/.idea
 .DS_Store
 .env.local
 .env.development.local
