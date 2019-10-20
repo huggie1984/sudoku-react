@@ -36,7 +36,6 @@ class NavBar extends Component {
     };
 
     onLogoutHandler = () => {
-        console.log('called');
         this.props.removeNotification();
         this.props.onLogout();
     };

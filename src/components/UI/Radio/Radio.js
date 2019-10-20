@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import classes from './Radio.module.css';
-
 const Radio = (props) => {
     return (
         <div className={'my-2'}>

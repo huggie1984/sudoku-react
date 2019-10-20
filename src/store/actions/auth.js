@@ -84,7 +84,6 @@ export const auth = (email, password, userName, isLogin) => {
         axios.post(url + requestType + '?key=' + apiKey, authData)
         .then(res => {
             const expirationDate = new Date (new Date().getTime() + res.data.expiresIn * 1000);
-            console.log('Token auth Set');
             localStorage.setItem('token', res.data.idToken);
             localStorage.setItem('refreshToken', res.data.refreshToken);
             localStorage.setItem('expirationDate', expirationDate);
