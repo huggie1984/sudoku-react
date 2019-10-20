@@ -1,4 +1,3 @@
-// todo validation bug, only validating first cell in list.
 
 export const getUserInputCells = (puzzle) => {
     let cells = [];

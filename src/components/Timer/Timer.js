@@ -7,14 +7,13 @@ import * as actions from '../../store/actions/index';
 // todo not use the store for the time out this should be done on component state.
 class Timer extends Component {
 
-    // if new game start time from 0
-    // if game complete stop time.
+    // timer logic should be handled in Game.js not here, this should be a dumb component.
 
     timerInterval = null;
 
     startTimer = (currentTime) => {
         this.timerInterval = setInterval( ()=> {
-            this.props.updateTime();// todo dont do this
+            this.props.updateTime();
         }, 1000);
     }
 
