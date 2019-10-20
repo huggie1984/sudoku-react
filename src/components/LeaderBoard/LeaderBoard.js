@@ -10,24 +10,25 @@ export const LeaderBoard = (props) => {
 
     const setDifficulty = (difficulty) => {
         switch(difficulty) {
-            case 30: return 'easy puzzle';
-            case 40: return 'medium puzzle';
-            case 50: return 'hard puzzle';
+            case 30: return 'EASY';
+            case 40: return 'MEDIUM';
+            case 50: return 'HARD';
             default: return '???';
         }
     };
 
     if (props.players) {
-        tableData = props.players.map((player, i) => (
-                <tr key={i}>
-                    <th scope="row">{i + 1}</th>
-                    <td>{player.userName}</td>
-                    <td>{formatTime(player.time)}</td>
-                    <td>{setDifficulty(player.difficulty)}</td>
-                </tr>
-            ));
+        tableData = props.players.sort(function(p1, p2) {
+            return p1.time - p2.time;
+        }).map((player, i) => (
+            <tr key={i}>
+                <th scope="row">{i + 1}</th>
+                <td>{player.userName}</td>
+                <td>{formatTime(player.time)}</td>
+                <td>{setDifficulty(player.difficulty)}</td>
+            </tr>
+        ));
     }
-
 
     return (
         <div className={'table-responsive'}>
