@@ -21,7 +21,9 @@ class Home extends Component {
 
     componentDidMount() {
         this.setState({...this.state, puzzleDifficulty: this.state.radioGroup[0].value});
-        this.props.getSavedPuzzle(this.props.userId, this.props.token)
+        if(!this.props.puzzle) {
+            this.props.getSavedPuzzle(this.props.userId, this.props.token);
+        }
     }
 
      newGameClickHandler = () => {

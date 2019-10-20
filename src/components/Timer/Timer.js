@@ -7,24 +7,7 @@ import * as actions from '../../store/actions/index';
 // todo not use the store for the time out this should be done on component state.
 class Timer extends Component {
 
-    // timer logic should be handled in Game.js not here, this should be a dumb component.
-
     timerInterval = null;
-
-    startTimer = (currentTime) => {
-        this.timerInterval = setInterval( ()=> {
-            this.props.updateTime();
-        }, 1000);
-    }
-
-
-    componentDidMount() {
-        this.startTimer();
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timerInterval);
-    };
 
     render() {
         return (
@@ -42,10 +25,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        updateTime: () => dispatch(actions.updateTime())
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Timer);
+export default connect(mapStateToProps)(Timer);

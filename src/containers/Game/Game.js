@@ -10,7 +10,41 @@ import AppButton from '../../components/UI/Button/Button';
 import { getUserInputCells, gridValidator } from '../../scripts/puzzleValidator';
 import classes from './Game.module.css';
 
+// get time, set time start time store time.
+// on init, do we have a puzle time?
+// if we are using the loaded puzzle use the loadded puzzle time else time is started at 0,
+// when the component will unmount we want to stop the interval, when the .
+
 class Game extends Component {
+
+    timerInterval = null;
+
+    state = {
+        time: null
+    };
+
+    componentDidMount() {
+        console.log('game mounted');
+        // use stored time if it is a resumed game
+        console.log(this.props.storedTime);
+        this.startTimer();
+    }
+
+    componentWillUnmount() {
+        console.log('game unmounted');
+
+        // update the store time when we leave this component.
+        // this.props.updateTime();
+        clearInterval(this.timerInterval);
+    };
+
+    startTimer = (currentTime) => {
+        this.timerInterval = setInterval( ()=> {
+            const currentTime = this.state.time;
+            this.setState({...this.state, time: currentTime + 1});
+            this.props.updateTime();
+        }, 1000);
+    };
 
     /**
      * create 9x9 grid
@@ -74,7 +108,7 @@ class Game extends Component {
         const saveData = {
             puzzle: JSON.stringify(this.props.puzzle),
             userId: this.props.userId,
-            time: this.props.time,
+            time: this.props.storedTime,
         };
         return this.props.onSavePuzzle(saveData, this.props.token);
     };
@@ -86,7 +120,7 @@ class Game extends Component {
     };
 
     publishToLeaderboardHandler = () => {
-        const publishData = {time: this.props.time, difficulty: this.props.difficulty, userName: this.props.userName};
+        const publishData = {time: this.props.storedTime, difficulty: this.props.difficulty, userName: this.props.userName};
         console.log(publishData);
         this.props.onPublishToLeaderBoards(publishData, this.props.token);
         this.props.onDeletePuzzle(this.props.userId, this.props.token);
@@ -97,7 +131,7 @@ class Game extends Component {
         const grid = this.createPuzzle();
         return (
             <Wrapper>
-                <Timer time={this.props.time} />
+                <Timer />
                 <Container className={classes.container}>
                     { grid }
                 </Container>
@@ -114,7 +148,7 @@ const mapStateToProps = (state) => {
     return {
         loading: state.game.loading,
         puzzle: state.game.puzzle,
-        time: state.game.time,
+        storedTime: state.game.time,
         userId: state.auth.userId,
         userName: state.auth.userName,
         token: state.auth.token,
@@ -129,7 +163,8 @@ const mapDispatchToProps = (dispatch) => {
         onPuzzleInput: (value) => dispatch(actions.onPuzzleInput(value)),
         onSavePuzzle: (data, token) => dispatch(actions.saveGameInfo(data, token)),
         onPublishToLeaderBoards: (data, token) => dispatch(actions.postToLeaderBoards(data, token)),
-        onDeletePuzzle: (userId, token) => dispatch(actions.deletePuzzle(userId, token))
+        onDeletePuzzle: (userId, token) => dispatch(actions.deletePuzzle(userId, token)),
+        updateTime: () => dispatch(actions.updateTime())
     }
 };
 

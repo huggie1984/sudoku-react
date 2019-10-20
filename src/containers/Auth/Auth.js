@@ -10,9 +10,9 @@ import AppButton from '../../components/UI/Button/Button';
 
 
 // TODO refactor this shit and tidy it up and sort out the disabled button.
+// TODO is form valid? display signin button.
 class Auth extends Component {
 
-    //loginForm.inputs:[], loginForm.button:
     state = {
       loginForm: {
           email: {
