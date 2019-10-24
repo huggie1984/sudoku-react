@@ -10,9 +10,9 @@ export const LeaderBoard = (props) => {
 
     const setDifficulty = (difficulty) => {
         switch(difficulty) {
-            case 30: return 'EASY';
-            case 40: return 'MEDIUM';
-            case 50: return 'HARD';
+            case 40: return 'EASY';
+            case 50: return 'MEDIUM';
+            case 60: return 'HARD';
             default: return '???';
         }
     };

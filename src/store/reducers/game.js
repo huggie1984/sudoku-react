@@ -29,6 +29,20 @@ const updatePuzzleInput = (state, action) => {
     return updateObject(state, {puzzle: newPuzzle});
 };
 
+const updatePuzzleHighlight = (state, action) => {
+    const cell = action.payload;
+    let newPuzzle = [...state.puzzle];
+    for (let r = 0; r < newPuzzle.length; r++) {
+        for(let c = 0; c < newPuzzle[r].length; c++) {
+            if (!newPuzzle[r][c].isHighlighted) continue;
+            newPuzzle[r][c].isHighlighted = false;
+        }
+    }
+    newPuzzle[cell.row].forEach(cell => cell.isHighlighted = true);
+    newPuzzle.forEach(row => row.filter(_cell => _cell.col === cell.col)[0].isHighlighted = true);
+    return updateObject(state, {puzzle: newPuzzle});
+};
+
 const clearPuzzle = (state) => {
     return updateObject(state, {
         puzzle: [],
@@ -83,6 +97,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.CREATE_PUZZLE: return createPuzzle(state, action);
         case actionTypes.CLEAR_PUZZLE: return clearPuzzle(state, action);
         case actionTypes.GAME_PUZZLE_INPUT: return updatePuzzleInput(state, action);
+        case actionTypes.GAME_PUZZLE_HIGHLIGHT: return updatePuzzleHighlight(state, action);
         case actionTypes.GAME_INIT_TIME: return initTimer(state, action);
         case actionTypes.GAME_UPDATE_TIME: return updateTime(state, action);
         case actionTypes.GET_PUZZLE_START: return getPuzzleStart(state, action);

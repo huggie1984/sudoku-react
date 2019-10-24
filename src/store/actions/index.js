@@ -3,6 +3,7 @@ export {
     clearPuzzle,
     deletePuzzle,
     onPuzzleInput,
+    onPuzzleHighlight,
     saveGameInfo,
     initTime,
     updateTime,

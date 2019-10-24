@@ -31,6 +31,7 @@ const definePuzzleGrid = () => {
             const gridIndex = gridRow * 3 + gridCol;
             puzzle[row].push({
                 isDisabled: true,
+                isHighlighted: false,
                 row: row, 
                 col: col, 
                 id: row + '_' +col,

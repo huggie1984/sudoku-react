@@ -84,6 +84,13 @@ export const onPuzzleInput = (payload) => {
     }
 };
 
+export const onPuzzleHighlight = (payload) => {
+    return {
+        type: actionTypes.GAME_PUZZLE_HIGHLIGHT,
+        payload: payload
+    }
+};
+
 export const initTime = () => {
     return {
         type: actionTypes.GAME_INIT_TIME

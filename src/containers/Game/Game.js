@@ -11,9 +11,10 @@ import { getUserInputCells, gridValidator } from '../../scripts/puzzleValidator'
 import classes from './Game.module.css';
 
 // get time, set time start time store time.
-// on init, do we have a puzle time?
+// on init, do we have a puzzle time?
 // if we are using the loaded puzzle use the loadded puzzle time else time is started at 0,
 // when the component will unmount we want to stop the interval, when the .
+//todo stop the constanr redraws from the timer timer could be a pure-component?
 
 class Game extends Component {
 
@@ -24,15 +25,12 @@ class Game extends Component {
     };
 
     componentDidMount() {
-        console.log('game mounted');
         // use stored time if it is a resumed game
         console.log(this.props.storedTime);
         this.startTimer();
     }
 
     componentWillUnmount() {
-        console.log('game unmounted');
-
         // update the store time when we leave this component.
         // this.props.updateTime();
         clearInterval(this.timerInterval);
@@ -46,6 +44,10 @@ class Game extends Component {
         }, 1000);
     };
 
+    onCellSelected = (cell) => {
+       this.props.onPuzzleHighlight(cell);
+    };
+
     /**
      * create 9x9 grid
      */
@@ -57,13 +59,14 @@ class Game extends Component {
                         {row.map(cell => {
                             const cellValue = (cell.value > 0)? cell.value : '';
                             return (
-                                <Col key={cell.row + '_' + cell.col} className={classes.cell}>
-                                    <input className={classes.myInput}
-                                            id={cell.row + '_' + cell.col}
-                                            onChange={(event) => this.onInputChangeHandler(event)}
-                                            type='number' 
-                                            disabled={cell.isDisabled}
-                                            value={cellValue} />
+                                <Col onClick={()=>this.onCellSelected(cell)} key={cell.row + '_' + cell.col} className={classes.cell}>
+                                    <input
+                                        className={cell.isHighlighted ? classes.myInput + ' ' + classes.highlight : classes.myInput}
+                                        id={cell.row + '_' + cell.col}
+                                        onChange={(event) => this.onInputChangeHandler(event)}
+                                        type='number'
+                                        disabled={cell.isDisabled}
+                                        value={cellValue} />
                                 </Col>
                             )
                         })}
@@ -161,6 +164,7 @@ const mapDispatchToProps = (dispatch) => {
         notificationModal: (messageSettings) => dispatch(actions.createNotifiactionModal(messageSettings)),
         removeNotification: () => dispatch(actions.removeNotification()),
         onPuzzleInput: (value) => dispatch(actions.onPuzzleInput(value)),
+        onPuzzleHighlight: (cell) => dispatch(actions.onPuzzleHighlight(cell)),
         onSavePuzzle: (data, token) => dispatch(actions.saveGameInfo(data, token)),
         onPublishToLeaderBoards: (data, token) => dispatch(actions.postToLeaderBoards(data, token)),
         onDeletePuzzle: (userId, token) => dispatch(actions.deletePuzzle(userId, token)),

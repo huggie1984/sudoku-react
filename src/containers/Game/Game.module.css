@@ -82,6 +82,10 @@ input:hover {
     font-family: 'Alegreya Sans SC', sans-serif;
 }
 
+.highlight {
+    border: 5px solid #c4561c;
+}
+
 .myInput:focus { 
     background-color: #fbf6d2;
   }
