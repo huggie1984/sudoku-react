@@ -4,10 +4,27 @@ import { connect } from 'react-redux'
 import { formatTime } from '../../scripts/utils';
 import * as actions from '../../store/actions/index';
 
-// todo not use the store for the time out this should be done on component state.
+// todo should this be a pure component.
+// todo we shouldn't call the store every second.
+// think of a better pragmatic way to store time.
 class Timer extends Component {
 
     timerInterval = null;
+
+    startTimer = (currentTime) => {
+        this.timerInterval = setInterval( ()=> {
+            this.props.updateTime();
+        }, 1000);
+    };
+
+
+    componentDidMount() {
+        this.startTimer();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerInterval);
+    };
 
     render() {
         return (
@@ -25,4 +42,10 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(Timer);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateTime: () => dispatch(actions.updateTime())
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);
