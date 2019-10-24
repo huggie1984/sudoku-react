@@ -21,7 +21,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.setState({...this.state, puzzleDifficulty: this.state.radioGroup[0].value});
-        if(!this.props.puzzle) {
+        if(!this.props.puzzle || this.props.puzzle.length < 1) {
             this.props.getSavedPuzzle(this.props.userId, this.props.token);
         }
     }
