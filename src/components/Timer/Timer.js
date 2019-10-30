@@ -4,10 +4,7 @@ import { connect } from 'react-redux'
 import { formatTime } from '../../scripts/utils';
 import * as actions from '../../store/actions/index';
 
-// todo should this be a pure component.
-// todo we shouldn't call the store every second.
-// think of a better pragmatic way to store time.
-class Timer extends Component {
+class Timer extends React.PureComponent {
 
     timerInterval = null;
 
@@ -16,7 +13,6 @@ class Timer extends Component {
             this.props.updateTime();
         }, 1000);
     };
-
 
     componentDidMount() {
         this.startTimer();

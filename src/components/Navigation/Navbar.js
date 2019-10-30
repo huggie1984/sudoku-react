@@ -48,9 +48,9 @@ class NavBar extends Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        { this.props.isAuth && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/home"}>Home</NavLink> }
-                        { this.props.isAuth && this.props.isPuzzle && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/game"}>Game</NavLink> }
-                        { this.props.isAuth && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/leader-boards"}>Leader boards</NavLink> }
+                        <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/home"}>Home</NavLink>
+                        { this.props.isPuzzle && <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/game"}>Game</NavLink> }
+                        <NavLink activeClassName={classes.activeLink} className={'nav-link'} to={"/leader-boards"}>Leader boards</NavLink>
                     </Nav>
                     <Nav className="mr-sm-2">
                         {this.props.isAuth && <Nav.Link onClick={() => this.logoutHandler()}>Logout</Nav.Link>}
@@ -59,7 +59,7 @@ class NavBar extends Component {
             </Wrapper>
         }
         return (
-        <Navbar expand="md" bg="dark" variant="dark">
+        <Navbar expand="md">
             <Navbar.Brand className={classes.brand} to={"/home"}>Sudoku</Navbar.Brand>
             { navItems }
         </Navbar>

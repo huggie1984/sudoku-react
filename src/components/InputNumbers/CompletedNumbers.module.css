@@ -1,0 +1,61 @@
+.container {
+    width: 50%;
+}
+
+.input {
+color: #09216c;
+font-family: 'Alegreya Sans SC', sans-serif;
+background-color: #5cb5e2;
+border: 1px solid black;
+width: 35px;
+height: 35px;
+cursor: none;
+padding: 5px;
+    border-radius: 50%;
+text-align: center;
+}
+.input:nth-child(2) {
+left: 6%;
+}
+.input:nth-child(3) {
+left: 12%;
+}
+.input:nth-child(4) {
+left: 18%;
+}
+.input:nth-child(5) {
+left: 24%;
+}
+.input:nth-child(6) {
+left: 30%;
+}
+.input:nth-child(7) {
+left: 36%;
+}
+.input:nth-child(8) {
+left: 42%;
+}
+.input:nth-child(9) {
+left: 48%;
+}
+
+@media (max-width: 800px) {
+    .container {
+        width: 75%;
+    }
+    .input{
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 500px) {
+    .container {
+        width: 90%;
+        padding: 0;
+    }
+    .input{
+        width: 45px;
+        height: 45px;
+    }
+}

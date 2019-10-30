@@ -57,7 +57,7 @@ class Home extends Component {
                     </div>
                     <div className="row">
                         <div className={'col-sm-6 d-flex flex-sm-column'}>
-                            <div className={'col'}>Select difficulty</div>
+                            <div className={'col font-weight-bold'}>Select difficulty</div>
                             <div className={'col'}>
                                 {this.state.radioGroup.map(radio => (
                                     <Radio

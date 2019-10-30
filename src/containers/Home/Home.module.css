@@ -2,12 +2,14 @@
     max-width: 450px;
     padding: 20px;
     margin: 0 auto;
+    color: #040203;
 }
 
 .header {
     font-size: 3rem;
     font-weight: bold;
     font-family: 'Alegreya Sans SC', sans-serif;
+    color: #040203;
 }
 
 @media only screen and (max-width: 450px) {

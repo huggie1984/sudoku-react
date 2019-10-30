@@ -6,18 +6,64 @@ import * as actions from '../../store/actions/index';
 
 import Wrapper from '../../hoc/Wrapper';
 import Timer from '../../components/Timer/Timer';
+import { CompletedNumbers } from '../../components/InputNumbers/CompletedNumbers';
 import AppButton from '../../components/UI/Button/Button';
 import { getUserInputCells, gridValidator } from '../../scripts/puzzleValidator';
 import classes from './Game.module.css';
 
-// on init, do we have a puzzle time?
-//todo should time be a pure component that is independant
-// of this class so we don't trigger redraws on the component
-
 class Game extends Component {
 
+    state = {
+        numberTotal: {
+            '1': {show: false},
+            '2': {show: false},
+            '3': {show: false},
+            '4': {show: false},
+            '5': {show: false},
+            '6': {show: false},
+            '7': {show: false},
+            '8': {show: false},
+            '9': {show: false}
+        }
+    };
+
+    componentDidMount() {
+        for(const key in this.state.numberTotal) {
+            this.checkNumberTotal(key);
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // console.log('do not update every interval');
+    }
+
     onCellSelected = (cell) => {
-       this.props.onPuzzleHighlight(cell);
+        this.props.onPuzzleHighlight(cell);
+    };
+
+    onInputChangeHandler = (event) => {
+        this.props.onPuzzleInput({id: event.target.id, value: event.target.value});
+        if(event.target.value) {
+            this.checkNumberTotal(event.target.value);
+        } else {
+            for(const key in this.state.numberTotal) {
+                this.checkNumberTotal(key);
+            }
+        }
+    };
+
+    checkNumberTotal = (value) => {
+        let count = 0;
+        for(let r = 0; r < this.props.puzzle.length; r++) {
+            for(let c = 0; c < this.props.puzzle[r].length; c++) {
+                const cell = this.props.puzzle[r][c];
+                if(parseInt(cell.value) !== parseInt(value)) continue;
+                count ++;
+            }
+        }
+        const newState = {...this.state};
+        newState.numberTotal[value].show = (count >= 9);
+        this.setState(newState);
     };
 
     /**
@@ -26,12 +72,15 @@ class Game extends Component {
     createPuzzle = () => {
         return (
             <div className={classes.content}>
-                { this.props.puzzle.map((row, i) => {
-                    return <Row key={i} className={classes.row}>
+                { this.props.puzzle.map((row, i) => (
+                    <Row key={i} className={classes.row}>
                         {row.map(cell => {
                             const cellValue = (cell.value > 0)? cell.value : '';
                             return (
-                                <Col onClick={()=>this.onCellSelected(cell)} key={cell.row + '_' + cell.col} className={classes.cell}>
+                                <Col
+                                    onClick={()=>this.onCellSelected(cell)}
+                                    key={cell.row + '_' + cell.col}
+                                    className={classes.cell}>
                                     <input
                                         className={cell.isHighlighted ? classes.myInput + ' ' + classes.highlight : classes.myInput}
                                         id={cell.row + '_' + cell.col}
@@ -43,13 +92,9 @@ class Game extends Component {
                             )
                         })}
                     </Row>
-                })}
+                    ))}
             </div>
         )
-    };
-
-    onInputChangeHandler = (event) => {
-        this.props.onPuzzleInput({id: event.target.id, value: event.target.value})
     };
 
     checkSolutionHandler = () => {
@@ -96,7 +141,6 @@ class Game extends Component {
 
     publishToLeaderboardHandler = () => {
         const publishData = {time: this.props.time, difficulty: this.props.difficulty, userName: this.props.userName};
-        console.log(publishData);
         this.props.onPublishToLeaderBoards(publishData, this.props.token);
         this.props.onDeletePuzzle(this.props.userId, this.props.token);
         this.props.removeNotification();
@@ -107,6 +151,7 @@ class Game extends Component {
         return (
             <Wrapper>
                 <Timer/>
+                <CompletedNumbers numbers={this.state.numberTotal}/>
                 <Container className={classes.container}>
                     { grid }
                 </Container>

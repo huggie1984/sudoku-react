@@ -9,13 +9,13 @@ class LeaderBoards extends Component {
     //for each of the difficulties render a table
     state = {
         playerData: []
-    }
+    };
 
     componentDidMount() {
         const url = 'https://sudoku-19bcc.firebaseio.com/leaderboards.json?auth=' + this.props.token;
         axios.get(url)
         .then( res => {
-            const playerData = []
+            const playerData = [];
             for(let key in res.data) {
                 playerData.push(res.data[key])
             }
@@ -37,7 +37,7 @@ const mapStateToProps = state => {
     return{
         token: state.auth.token
     }
-}
+};
 
 export default connect(mapStateToProps)(LeaderBoards);
 

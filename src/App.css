@@ -1,18 +1,15 @@
 body {
-/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#f5c465+1,fbf6d2+13 */
-background: #f5c465; /* Old browsers */
-background: -moz-linear-gradient(top,  #f5c465 1%, #fbf6d2 13%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top,  #f5c465 1%,#fbf6d2 13%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom,  #f5c465 1%,#fbf6d2 13%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5c465', endColorstr='#fbf6d2',GradientType=0 ); /* IE6-9 */
-
-  background-repeat: no-repeat;
+  background-color: #a4dcfe;
   height: 100vh;
 }
 
 .navbar {
-  background-color:#10242c;
+  background-color:#010a3d;
   font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+.navbar-light .navbar-nav .nav-link{
+  color: #467b8d;
 }
 
 .btn:disabled {
@@ -80,7 +77,7 @@ input[type=number]::-webkit-outer-spin-button {
   cursor: pointer;
   line-height: 20px;
   display: inline-block;
-  color: #666;
+  color: #fff;
 }
 [type="radio"]:checked + label:before,
 [type="radio"]:not(:checked) + label:before {
