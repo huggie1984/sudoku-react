@@ -8,6 +8,10 @@ body {
   font-family: 'Alegreya Sans SC', sans-serif;
 }
 
+.navbar-brand{
+  color: #ffffff;
+}
+
 .navbar-light .navbar-nav .nav-link{
   color: #467b8d;
 }

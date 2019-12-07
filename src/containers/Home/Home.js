@@ -6,12 +6,10 @@ import { Redirect } from 'react-router-dom';
 import AppButton from '../../components/UI/Button/Button';
 import classes from './Home.module.css';
 import * as actions from '../../store/actions/index';
-import Radio from '../../components/UI/Radio/Radio';
-
 
 class Home extends Component {
     state = {
-        radioGroup: [
+        selectGroup: [
             { value: 40, label: 'easy' },
             { value: 50, label: 'medium' },
             { value: 60, label: 'hard' }
@@ -20,7 +18,7 @@ class Home extends Component {
     };
 
     componentDidMount() {
-        this.setState({...this.state, puzzleDifficulty: this.state.radioGroup[0].value});
+        this.setState({...this.state, puzzleDifficulty: this.state.selectGroup[0].value});
         if(!this.props.puzzle || this.props.puzzle.length < 1) {
             this.props.getSavedPuzzle(this.props.userId, this.props.token);
         }
@@ -36,7 +34,7 @@ class Home extends Component {
         this.props.history.push('/game');
      };
 
-     onRadioChangeHandler = (event) => {
+     onChangeHandler = (event) => {
          const value = parseInt(event.target.value);
          this.setState({...this.state, puzzleDifficulty: value})
      };
@@ -52,24 +50,14 @@ class Home extends Component {
             <div className={classes.Home}>
                 <div className={'d-flex flex-column'}>
                     { authRedirect }
-                    <div className="mb-3 text-center">
-                        <div className={classes.header}>Sudoku</div>
-                    </div>
                     <div className="row">
                         <div className={'col-sm-6 d-flex flex-sm-column'}>
                             <div className={'col font-weight-bold'}>Select difficulty</div>
-                            <div className={'col'}>
-                                {this.state.radioGroup.map(radio => (
-                                    <Radio
-                                        key={'puzzle_' + radio.value}
-                                        value={radio.value}
-                                        label={radio.label}
-                                        id={'puzzle_' + radio.value}
-                                        group={'puzzle_difficulty'}
-                                        check={this.state.puzzleDifficulty}
-                                        handleChange={(event) => this.onRadioChangeHandler(event)}/>
-                                ))}
-                            </div>
+                            <select className="custom-select custom-select-lg mb-3" onChange={(event) => this.onChangeHandler(event)}>
+                                {this.state.selectGroup.map(radio => {
+                                    return <option value={radio.value}>{radio.label}</option>
+                                })}
+                            </select>
                         </div>
                         <div className={'col-sm-6 d-flex flex-column my-auto'}>
                             <AppButton
